@@ -45,7 +45,7 @@ class MeditatePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-           Image.asset('lib/images/mediate.png'),
+         
            
         //     const SizedBox(height: 16.0),
         //     ElevatedButton(
@@ -54,6 +54,14 @@ class MeditatePage extends StatelessWidget {
         //       },
         //       child: const Text('Start Meditation'),
         //     ),
+      Card(
+        child: SizedBox(
+          width: 300,
+          height: 100,
+          child: Center(child: Text('Elevated Card')),
+        ),
+      ),
+        Image.asset('lib/images/mediate.png'),
           ],
         ),
       ),
