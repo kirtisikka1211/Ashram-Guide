@@ -37,7 +37,7 @@ class MeditatePage extends StatelessWidget {
         //       // handle popup menu item selection
         //     },
         //   ),
-        // ],
+        ],
       ),
       
       body: Center(
