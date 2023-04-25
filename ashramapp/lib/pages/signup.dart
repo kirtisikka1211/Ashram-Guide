@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-// import 'pages/signup.dart';
-import 'signup.dart';
+import 'login.dart';
+import 'mediate.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _SignUpPageState createState() => _SignUpPageState();
 }
 
 const Color myColor = Color(0xFF993B3B);
 const Color hColor = Color(0xFFFFE2D4);
 
-class _LoginPageState extends State<LoginPage> {
-  bool _rememberMe = false;
+class _SignUpPageState extends State<SignUpPage> {
   bool _obscureText = true;
 
   @override
@@ -22,10 +21,25 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: Colors.white,
         body: Column(
           children: [
-            const SizedBox(height: 150),
-            Container(
-              alignment: Alignment.center,
-              child: Image.asset('lib/images/logo.jpeg'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+
+
+              
+            
+          children: [
+           IconButton(
+  icon: Icon(Icons.arrow_back),
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MeditatePage()),
+    );
+  },
+),
+
+                const SizedBox(height: 150),
+              ],
             ),
             Container(
               alignment: Alignment.centerLeft,
@@ -34,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Sign In',
+                    'Sign Up',
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -50,7 +64,20 @@ class _LoginPageState extends State<LoginPage> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
                       ),
-                      hintText: 'Enter your username/mail',
+                      hintText: 'Enter your username',
+                      prefixIcon: Icon(Icons.person),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  const TextField(
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      hintText: 'Enter your email',
                       prefixIcon: Icon(Icons.mail),
                     ),
                   ),
@@ -80,32 +107,31 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: _rememberMe,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _rememberMe = value!;
-                              });
-                            },
-                          ),
-                          const Text('Remember me'),
-                        ],
+                const SizedBox(height: 20),
+                  TextField(
+                    obscureText: _obscureText,
+                    decoration: InputDecoration(
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
                       ),
-                      InkWell(
-                        onTap: () {},
-                        child: const Text(
-                          'Forgot Password ?',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      prefixIcon: const Icon(Icons.lock),
+                      hintText: 'Confirm your password',
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off,
                         ),
+                        onPressed: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        },
                       ),
-                    ],
+                    ),
                   ),
                 ],
               ),
@@ -124,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
                         Text(
-                          'Sign In',
+                          'Sign Up',
                           style: TextStyle(
                             fontFamily: 'Changa',
                             fontSize: 18,
@@ -173,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
                     // ),
                     const SizedBox(width: 10),
                     const Text(
-                      'Sign in with Google',
+                      'Login in with Google',
                       style: TextStyle(
                         fontFamily: 'Changa',
                         fontSize: 18,
@@ -194,7 +220,7 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        "Don't have an account? ",
+                        "Already have an account? ",
                         style: TextStyle(
                           fontFamily: 'Changa',
                           fontSize: 16,
@@ -206,10 +232,10 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SignUpPage()),
+                                  builder: (context) => const LoginPage()),
                             );
                           },
-                          child: const Text(' Sign up',
+                          child: const Text(' Sign In',
                               style: TextStyle(
                                 fontFamily: 'Changa',
                                 fontSize: 16,
@@ -225,3 +251,6 @@ class _LoginPageState extends State<LoginPage> {
         ));
   }
 }
+
+  
+            
