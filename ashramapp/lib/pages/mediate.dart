@@ -1,10 +1,51 @@
 import 'package:flutter/material.dart';
+class MeditatePage extends StatefulWidget {
+  const MeditatePage({super.key});
 
-class MeditatePage extends StatelessWidget {
   @override
+  _MeditatePageState createState() => _MeditatePageState();
+}
+
+const double width = 300.0;
+const double height = 60.0;
+const double loginAlign = -1;
+const double signInAlign = 1;
+const Color selectedColor = Colors.white;
+const Color normalColor = Colors.black54;
+
+
+class _MeditatePageState extends State<MeditatePage> {
+ late double xAlign;
+
+  late Color loginColor;
+  late Color signInColor;
+
+  @override
+  void initState() {
+    super.initState();
+    xAlign = loginAlign;
+    loginColor = selectedColor;
+    signInColor = normalColor;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+  @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        
+
         // backgroundColor: Colors.white,
         
         title: const Text('Meditate'),
@@ -45,6 +86,88 @@ class MeditatePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+        
+             Container(
+          width: 300,
+          height: 60,
+          decoration: BoxDecoration(
+            color: Colors.grey,
+            borderRadius: BorderRadius.all(
+              Radius.circular(50.0),
+            ),
+          ),
+          child: Stack(
+            children: [
+              AnimatedAlign(
+                alignment: Alignment(xAlign, 0),
+                duration: Duration(milliseconds: 300),
+                child: Container(
+                  width: 140,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(50.0),
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    xAlign = -0.9;
+                    loginColor = selectedColor;
+
+
+                    signInColor = normalColor;
+                  });
+                },
+                child: Align(
+                  alignment: Alignment(-1, 0),
+                  child: Container(
+                    width: width * 0.5,
+                    color: Colors.transparent,
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Darshan',
+                      style: TextStyle(
+
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    xAlign = 0.9;
+                    signInColor = selectedColor;
+
+                    loginColor = normalColor;
+                  });
+                },
+                child: Align(
+                  alignment: Alignment(1, 0),
+                  child: Container(
+                    width: width * 0.5,
+                    color: Colors.transparent,
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Meditation',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      
          
            
         //     const SizedBox(height: 16.0),
@@ -53,15 +176,18 @@ class MeditatePage extends StatelessWidget {
         //         // Start meditation session
         //       },
         //       child: const Text('Start Meditation'),
-        //     ),
-      Card(
+        // 
+        //    ),
+            const SizedBox(height: 100.0),
+      const Card(
         child: SizedBox(
-          width: 300,
-          height: 100,
+          width: 340,
+          height: 120,
           child: Center(child: Text('Elevated Card')),
         ),
       ),
-        Image.asset('lib/images/mediate.png'),
+      const SizedBox(height: 20.0),
+      Image.asset('lib/images/mediate.png'),
           ],
         ),
       ),

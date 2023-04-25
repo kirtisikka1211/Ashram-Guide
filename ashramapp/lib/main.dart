@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Ashram App',
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: MeditatePage(),
 
     
     );
