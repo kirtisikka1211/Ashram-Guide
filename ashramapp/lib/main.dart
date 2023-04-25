@@ -7,6 +7,8 @@ import 'pages/verification.dart';
 import 'pages/volunteersignup.dart';
 import 'pages/resetpass.dart';
 import 'pages/booking.dart';
+import 'pages/demo.dart';
+import 'pages/mediate.dart';
 void main(){
   runApp(const MyApp());
 
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Ashram App',
       debugShowCheckedModeBanner: false,
-      home: volsign(),
+      home: LoginPage(),
 
     
     );
