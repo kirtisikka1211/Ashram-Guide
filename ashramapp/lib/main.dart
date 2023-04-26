@@ -10,20 +10,19 @@ import 'pages/booking.dart';
 import 'pages/demo.dart';
 import 'pages/mediate.dart';
 import 'pages/darshan.dart';
-void main(){
-  runApp(const MyApp());
 
+void main() {
+  runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
-  const MyApp({ super.key});
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Ashram App',
       debugShowCheckedModeBanner: false,
       home: darshan(),
-
-    
     );
   }
 }
