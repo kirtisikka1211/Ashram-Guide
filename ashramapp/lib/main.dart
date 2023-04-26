@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'pages/login.dart';
-
+import 'pages/eventsempty.dart';
 import 'pages/nav.dart';
 import 'pages/home.dart';
 import 'pages/verification.dart';
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Ashram App',
       debugShowCheckedModeBanner: false,
-      home: darshan(),
+      home: empty(),
 
     
     );
