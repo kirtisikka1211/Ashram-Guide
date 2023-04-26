@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "957698917025",
+    "project_id": "fir-database-a3ae5",
+    "storage_bucket": "fir-database-a3ae5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:957698917025:android:3a08c322ca5e29caa9e6e0",
+        "android_client_info": {
+          "package_name": "com.example.ashramapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "957698917025-97nk51a4g93k6nluglri9dj13p5de9rl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGuN6AsPoUHkSvNFGzjU-No571tISinoI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "957698917025-97nk51a4g93k6nluglri9dj13p5de9rl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:957698917025:android:40b226eb46dd9ff2a9e6e0",
+        "android_client_info": {
+          "package_name": "com.example.firebase_database"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "957698917025-97nk51a4g93k6nluglri9dj13p5de9rl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGuN6AsPoUHkSvNFGzjU-No571tISinoI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "957698917025-97nk51a4g93k6nluglri9dj13p5de9rl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
