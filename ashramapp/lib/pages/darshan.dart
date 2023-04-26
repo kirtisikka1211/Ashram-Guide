@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-class MeditatePage extends StatefulWidget {
-  const MeditatePage({super.key});
+class darshan extends StatefulWidget {
+  const darshan({super.key});
 
   @override
-  _MeditatePageState createState() => _MeditatePageState();
+  State<darshan> createState() => _darshanState();
+  
 }
-
 const double width = 300.0;
 const double height = 60.0;
 const double loginAlign = -1;
@@ -14,9 +14,8 @@ const double signInAlign = 1;
 const Color selectedColor = Colors.white;
 const Color normalColor = Colors.black54;
 
-
-class _MeditatePageState extends State<MeditatePage> {
- late double xAlign;
+class _darshanState extends State<darshan> {
+   late double xAlign;
 
   late Color loginColor;
   late Color signInColor;
@@ -30,20 +29,9 @@ class _MeditatePageState extends State<MeditatePage> {
   }
 
 
-
-
-
-
-
-
-
-
-
-
   @override
-
   Widget build(BuildContext context) {
-    return Scaffold(
+     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         leading: BackButton(),
@@ -231,7 +219,7 @@ class _MeditatePageState extends State<MeditatePage> {
 
 
       const SizedBox(height: 20.0),
-      Image.asset('lib/images/mediate.png'),
+      Image.asset('lib/images/darshan.png'),
           ],
         ),
       ),

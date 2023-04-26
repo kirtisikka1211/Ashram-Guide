@@ -26,8 +26,8 @@ class calenderState extends State<calender> {
              onPressed: () async {
               final DateTimeRange? dateTimeRange = await showDateRangePicker(
                 context: context, 
-                firstDate: DateTime(2000), 
-                lastDate: DateTime(3000),);
+                firstDate: DateTime.now(), 
+                lastDate: DateTime(2024),);
               if (dateTimeRange != null) {
                 setState(() {
                   selectedDates = dateTimeRange;
