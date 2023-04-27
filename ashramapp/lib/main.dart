@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'pages/login.dart';
+<<<<<<< HEAD
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+=======
+import 'pages/eventsempty.dart';
+>>>>>>> 77234a2fa8634ac31c2350d4d8ec5149090d0e24
 import 'pages/nav.dart';
 import 'pages/home.dart';
 import 'pages/verification.dart';
