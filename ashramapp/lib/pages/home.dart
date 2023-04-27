@@ -3,11 +3,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+// text fields' controllers
   final TextEditingController _TitleController = TextEditingController();
   final TextEditingController _DescriptionController = TextEditingController();
 
@@ -76,99 +79,92 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('My App'),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () {
-                // Open the side menu
-              },
-            ),
-          ],
+          title: const Center(child: Text('Ashram Sahayaka Beta Events')),
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: MediaQuery.of(context).size.height * 0.2,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('lib/images/house.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Upcoming Events',
-                    style:
-                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'See All',
-                        style: TextStyle(fontSize: 16.0),
-                      ),
-                      Icon(Icons.arrow_forward_ios),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 10, // Replace with your actual number of cards
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 8.0),
+        body: StreamBuilder(
+          stream: _events.snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+            if (streamSnapshot.hasData) {
+              return ListView.builder(
+                itemCount: streamSnapshot.data!.docs.length,
+                itemBuilder: (context, index) {
+                  final DocumentSnapshot documentSnapshot =
+                      streamSnapshot.data!.docs[index];
+
+                  return Card(
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
                     child: Container(
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.0),
-                        color: Colors.grey[200],
-                      ),
-                      child: Row(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Card Title',
+                          Row(
+                            children: [
+                              Icon(Icons.schedule),
+                              SizedBox(width: 8),
+                              Text(
+                                ' ${documentSnapshot['Title']}',
                                 style: TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            ' ${DateTime.now().toString().substring(0, 10)} at 6pm',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[600],
                             ),
                           ),
-                          Container(
-                            height: double.infinity,
-                            width: MediaQuery.of(context).size.width * 0.2,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.0),
-                              image: DecorationImage(
-                                image: AssetImage('lib/images/book.jpg'),
-                                fit: BoxFit.cover,
-                              ),
+                          const SizedBox(height: 16),
+                          Text(
+                            documentSnapshot['Description'],
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
+                          IconButton(
+                              icon: const Icon(Icons.close),
+                              onPressed: () => _delete(documentSnapshot.id)),
                         ],
                       ),
                     ),
                   );
-                },
-              ),
-            ),
-          ],
-        ),
 
+                  // return Card(
+                  //   margin: const EdgeInsets.all(10),
+                  //   child: ListTile(
+                  //     title: Text(documentSnapshot['Title']),
+                  //     subtitle:
+                  //         Text(documentSnapshot['Description'].toString()),
+                  //     trailing: SizedBox(
+                  //       width: 100,
+                  //       child: Row(
+                  //         children: [
+                  //           IconButton(
+                  //               icon: const Icon(Icons.close),
+                  //               onPressed: () => _delete(documentSnapshot.id)),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // );
+                },
+              );
+            }
+
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        ),
         // Add new product
         floatingActionButton: FloatingActionButton(
           onPressed: () => _create(),

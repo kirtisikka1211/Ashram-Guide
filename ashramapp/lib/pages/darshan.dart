@@ -1,5 +1,6 @@
 import 'package:ashramapp/pages/eventsempty.dart';
 import 'package:flutter/material.dart';
+import 'package:ashramapp/pages/volunteersignup.dart';
 
 class darshan extends StatefulWidget {
   const darshan({super.key});
@@ -218,7 +219,7 @@ class _darshanState extends State<darshan> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
+                  MaterialPageRoute(builder: (context) => const HomePage()),
                 );
                 // navigate to home page
               },
@@ -232,6 +233,11 @@ class _darshanState extends State<darshan> {
             IconButton(
               icon: Icon(Icons.volunteer_activism),
               onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const VolunteerPage()),
+                );
                 // navigate to volunteer page
               },
             ),
