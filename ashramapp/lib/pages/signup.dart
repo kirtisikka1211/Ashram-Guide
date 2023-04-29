@@ -31,10 +31,25 @@ class _SignUpPageState extends State<SignUpPage> {
            IconButton(
   icon: Icon(Icons.arrow_back),
   onPressed: () {
+    
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => MeditatePage()),
     );
+//       FadeTransition(
+//   opacity:animation,
+//   child: child,
+// );
+      
+//     );
+//     Navigator.pushReplacement(
+//     context, 
+//     PageRouteBuilder(
+//         pageBuilder: (context, animation1, animation2) => MeditatePage(),
+//         transitionDuration: Duration.zero,
+//         reverseTransitionDuration: Duration.zero,
+//     ),
+// );
   },
 ),
 
