@@ -18,13 +18,12 @@ import 'pages/darshan.dart';
 import 'pages/demo2.dart';
 import './pages/authpage.dart';
 
-void main() async {
+
+Future<void> main() async {
+  runApp(const MyApp());
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
-void main() {
-  runApp(const MyApp());
 }
 
 final navigatorkey= GlobalKey<NavigatorState>();
