@@ -1,9 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
+import '../main.dart';
 import 'mediate.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+  final Function() onClickedSignIn;
+
+
+  const SignUpPage({Key? key,
+     required this.onClickedSignIn}) : super(key: key);
 
   @override
   _SignUpPageState createState() => _SignUpPageState();
@@ -13,10 +20,41 @@ const Color myColor = Color(0xFF993B3B);
 const Color hColor = Color(0xFFFFE2D4);
 
 class _SignUpPageState extends State<SignUpPage> {
+  final emailController=TextEditingController();
+  final passwordController=TextEditingController();
+    @override
+  void dispose() {
+    
+  emailController.dispose();
+  passwordController.dispose(); 
+  super.dispose();
+  
+   }
+   
   bool _obscureText = true;
+ 
 
   @override
   Widget build(BuildContext context) {
+
+
+    Future SignUp() async {
+      showDialog(context: context,
+          barrierDismissible: false,
+          builder: (context)=> Center(child: CircularProgressIndicator()));
+
+          navigatorkey.currentState!.popUntil((route) => route.isFirst);
+
+
+       try {await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: emailController.text.trim(),
+             password: passwordController.text.trim());
+            } on FirebaseException catch (e) {
+              print(e);
+            }
+    }
+   
+    
     return Scaffold(
         backgroundColor: Colors.white,
         body: Column(
@@ -84,7 +122,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  const TextField(
+                   TextField(
+                    controller: emailController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
@@ -98,6 +137,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   const SizedBox(height: 20),
                   TextField(
+                    controller: passwordController,
                     obscureText: _obscureText,
                     decoration: InputDecoration(
                       enabledBorder: const OutlineInputBorder(
@@ -160,7 +200,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 color: hColor,
               ),
               child: TextButton(
-                  onPressed: () {},
+                  onPressed: SignUp ,
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
@@ -244,11 +284,11 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const LoginPage()),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) => const LoginPage()),
+                            // );
                           },
                           child: const Text(' Sign In',
                               style: TextStyle(

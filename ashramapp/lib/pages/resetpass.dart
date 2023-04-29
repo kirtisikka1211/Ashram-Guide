@@ -1,8 +1,29 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:email_validator/email_validator.dart';
 
 
-class ResetPassword extends StatelessWidget {
+
+class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
+
+  @override
+  State<ResetPassword> createState() => _ResetPasswordState();
+}
+
+class _ResetPasswordState extends State<ResetPassword> {
+
+  final formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+
+    super.dispose();  
+  }
+
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +66,13 @@ class ResetPassword extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              child: TextField(
+              child: TextFormField(
+                controller: emailController,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (email) =>
+                email != null && !EmailValidator.validate(email)
+                      ? 'Enter a valid email'
+                      : null,
                 decoration: InputDecoration(
                   hintText: 'Email Address',
                   border: InputBorder.none,
@@ -61,7 +88,7 @@ class ResetPassword extends StatelessWidget {
                 height: 45,
                 width: 200,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: resetpass,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -83,4 +110,45 @@ class ResetPassword extends StatelessWidget {
       ),
     );
   }
+
+  Future<void> resetpass() async {
+  final email = emailController.text.trim();
+
+  if (email.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('Please enter your email address'),
+    ));
+    return;
+  }
+
+  try {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('Password Reset email sent'),
+    ));
+
+    Navigator.of(context).popUntil((route) => route.isFirst);
+  } on FirebaseAuthException catch (e) {
+    print(e);
+
+    final errorMessage = _getErrorMessage(e.code);
+
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(errorMessage),
+    ));
+  }
+}
+
+String _getErrorMessage(String code) {
+  switch (code) {
+    case 'invalid-email':
+      return 'Invalid email address';
+    case 'user-not-found':
+      return 'User not found';
+    default:
+      return 'An error occurred. Please try again later.';
+  }
+}
+
 }
