@@ -1,9 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-// import 'pages/signup.dart';
+import '../main.dart';
+import 'resetpass.dart';
 import 'signup.dart';
 
+
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  const LoginPage({super.key, required this.onClickedSignUp});
+  final VoidCallback onClickedSignUp;
+
+  
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -16,8 +23,39 @@ class _LoginPageState extends State<LoginPage> {
   bool _rememberMe = false;
   bool _obscureText = true;
 
+  final emailController=TextEditingController();
+  final passwordController=TextEditingController();
+  
+  @override
+  void dispose() {
+    
+  emailController.dispose();
+  passwordController.dispose(); 
+  super.dispose();
+  
+   }
+
   @override
   Widget build(BuildContext context) {
+
+    Future signin() async {
+
+          showDialog(context: context,
+          barrierDismissible: false,
+          builder: (context)=> Center(child: CircularProgressIndicator()));
+          
+          navigatorkey.currentState!.popUntil((route) => route.isFirst);
+          
+             
+         try {await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: emailController.text.trim(),
+             password: passwordController.text.trim());
+            } on FirebaseException catch (e) {
+              print(e);
+            }
+           
+           
+        }
     return Scaffold(
         backgroundColor: Colors.white,
         body: Column(
@@ -42,7 +80,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  const TextField(
+                  TextField(
+                    controller: emailController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
@@ -56,6 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 20),
                   TextField(
+                    controller: passwordController,
                     obscureText: _obscureText,
                     decoration: InputDecoration(
                       enabledBorder: const OutlineInputBorder(
@@ -97,7 +137,8 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ResetPassword())),
                         child: const Text(
                           'Forgot Password ?',
                           style: TextStyle(
@@ -119,7 +160,9 @@ class _LoginPageState extends State<LoginPage> {
                 color: hColor,
               ),
               child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    signin();
+                  },
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
@@ -156,34 +199,20 @@ class _LoginPageState extends State<LoginPage> {
                 border: Border.all(color: Colors.black),
                 color: Colors.white,
               ),
-              child: TextButton(
-                onPressed: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'lib/images/google.png', // replace with actual path to Google icon image
-                      height: 24,
-                      width: 24,
-                    ),
-                    // SvgPicture.asset(
-                    //   'assets/google_logo.svg',
-                    //   width: 24,
-                    //   height: 24,
-                    // ),
-                    const SizedBox(width: 10),
-                    const Text(
-                      'Sign in with Google',
-                      style: TextStyle(
-                        fontFamily: 'Changa',
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              child: RichText(text: TextSpan(
+                style: TextStyle(color: Colors.black,fontSize: 20),
+                text: 'No Account?',
+               children: [
+                TextSpan( 
+                  recognizer: TapGestureRecognizer()
+                  ..onTap = widget.onClickedSignUp,
+                  text: 'sign up',
+                  style: TextStyle(
+                    decoration: TextDecoration.underline,
+                    color: Colors.blue[700],
+                  )
+                )
+               ])),
             ),
             Expanded(
               child: Align(
@@ -201,13 +230,13 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.black,
                         ),
                       ),
-                      GestureDetector(
+                      GestureDetector(  
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SignUpPage()),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) => SignUpPage()),
+                            // );
                           },
                           child: const Text(' Sign up',
                               style: TextStyle(
@@ -223,5 +252,8 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ],
         ));
+
+ 
+    
   }
 }
