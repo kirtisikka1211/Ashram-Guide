@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'pages/login.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'pages/nav.dart';
 import 'pages/home.dart';
@@ -18,22 +17,23 @@ import 'pages/darshan.dart';
 import 'pages/demo2.dart';
 import './pages/authpage.dart';
 
-
-Future<void> main() async {
-  runApp(const MyApp());
-
+void main() async {
+  // Initialize Firebase
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  // Run your app
+  runApp(const MyApp());
 }
 
 final navigatorkey= GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       navigatorKey: navigatorkey,
       title: 'Ashram App',
       debugShowCheckedModeBanner: false,
@@ -52,7 +52,7 @@ class Mainpage extends StatelessWidget {
           if (snapshot.connectionState==ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError){
-            return Center(child: Text("something went Wrong!"));
+            return Center(child: Text("Something went wrong!"));
           } else if (snapshot.hasData) {
             return  MyWidget();
           } else {
