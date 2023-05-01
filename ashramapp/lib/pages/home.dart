@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class home extends StatefulWidget {
+  const home({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _homeState createState() => _homeState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _homeState extends State<home> {
 // text fields' controllers
   final TextEditingController _TitleController = TextEditingController();
   final TextEditingController _DescriptionController = TextEditingController();

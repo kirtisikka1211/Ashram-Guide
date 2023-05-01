@@ -1,41 +1,132 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:ashramapp/pages/booking.dart';
+import 'package:ashramapp/pages/darshan.dart';
+import 'package:ashramapp/pages/eventsempty.dart';
+import 'package:ashramapp/pages/home.dart';
+import 'package:ashramapp/pages/volunteersignup.dart';
+import 'package:ashramapp/pages/confirmation.dart';
 
-
-class Navbar extends StatefulWidget {
-  const Navbar({super.key});
+class navhome extends StatefulWidget {
+  const navhome({Key? key}) : super(key: key);
 
   @override
-  State<Navbar> createState() => _NavbarState();
+  State<navhome> createState() => _navhomeState();
 }
 
-class _NavbarState extends State<Navbar> {
+class _navhomeState extends State<navhome> {
+  late DateTime startDate;
+  late DateTime endDate;
+
+  @override
+  void initState() {
+    super.initState();
+    startDate = DateTime.now();
+    endDate = DateTime.now();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold( appBar: AppBar(
-    title: const Text('BottomNavigationBar Demo'),
-  ),
-  bottomNavigationBar: BottomNavigationBar(
-    items: const <BottomNavigationBarItem>[
-      BottomNavigationBarItem(
-        icon: Icon(Icons.home_filled),
-        label: 'Home',
-        
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('home'),
       ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.calendar_month_rounded),
-        label: 'Events',
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.home),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const home()),
+                    );
+                  },
+                ),
+                const Text('Home'),
+              ],
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.event),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HomePage()),
+                    );
+                  },
+                ),
+                const Text('Event'),
+              ],
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.volunteer_activism),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const VolunteerPage()),
+                    );
+                  },
+                ),
+                const Text('Volunteer'),
+              ],
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.edit),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const darshan()),
+                    );
+                  },
+                ),
+                const Text('Darshan'),
+              ],
+            ),
+          ],
+        ),
       ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.back_hand_sharp),
-        label: 'Volunteer',
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final DateTimeRange? dateTimeRange = await showDateRangePicker(
+            context: context,
+            firstDate: DateTime.now(),
+            lastDate: DateTime(2024),
+          );
+          if (dateTimeRange != null) {
+            setState(() {
+              startDate = dateTimeRange.start;
+              endDate = dateTimeRange.end;
+            });
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ConfirmationPage(
+                  startDate: startDate, 
+                  endDate: endDate),
+              ),
+            );
+          }
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.blue[300],
+        tooltip: 'click to book',
+        elevation: 5,
       ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.mediation),
-        label: 'Volunteer',
-      ),
-    ],
-  ),);
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    );
   }
 }

@@ -37,9 +37,29 @@ class MyApp extends StatelessWidget {
       navigatorKey: navigatorkey,
       title: 'Ashram App',
       debugShowCheckedModeBanner: false,
-      home: darshan(),
+      home: Mainpage(),
+    );
+  }
+}
 
-    
+class Mainpage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState==ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError){
+            return Center(child: Text("Something went wrong!"));
+          } else if (snapshot.hasData) {
+            return  MeditatePage();
+          } else {
+            return Authpage();
+          }
+        },
+      ),
     );
   }
 }

@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 
 class calender extends StatefulWidget {
-  const calender({super.key});
+  const calender({Key? key}) : super(key: key);
 
   @override
   State<calender> createState() => calenderState();
 }
 
 class calenderState extends State<calender> {
-  DateTimeRange selectedDates = DateTimeRange(
-    start: DateTime.now(),
-     end: DateTime.now()
-  );
+  late DateTime startDate;
+  late DateTime endDate;
+
+  @override
+  void initState() {
+    super.initState();
+    startDate = DateTime.now();
+    endDate = DateTime.now();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -19,21 +25,27 @@ class calenderState extends State<calender> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-            "${selectedDates.duration.inDays}",
+            "Start Date: ${startDate.toString()}",
+          ),
+          Text(
+            "End Date: ${endDate.toString()}",
           ),
           ElevatedButton(
-             child: const Text("choose dates"),
-             onPressed: () async {
+            child: const Text("Choose Dates"),
+            onPressed: () async {
               final DateTimeRange? dateTimeRange = await showDateRangePicker(
-                context: context, 
-                firstDate: DateTime.now(), 
-                lastDate: DateTime(2024),);
+                context: context,
+                firstDate: DateTime.now(),
+                lastDate: DateTime(2024),
+              );
               if (dateTimeRange != null) {
                 setState(() {
-                  selectedDates = dateTimeRange;
+                  startDate = dateTimeRange.start;
+                  endDate = dateTimeRange.end;
                 });
               }
-             })
+            },
+          )
         ],
       ),
     );

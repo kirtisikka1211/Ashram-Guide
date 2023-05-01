@@ -1,4 +1,6 @@
 import 'package:ashramapp/pages/darshan.dart';
+import 'package:ashramapp/pages/nav.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'confirmation.dart';
@@ -83,7 +85,7 @@ class _MeditatePageState extends State<MeditatePage> {
                 leading: const Icon(Icons.info),
                 title: const Text('Logout'),
                 onTap: () {
-                  // Handle drawer item selection
+                  FirebaseAuth.instance.signOut();
                 },
               ),
             ],
@@ -254,7 +256,7 @@ class _MeditatePageState extends State<MeditatePage> {
                          Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const ConfirmationPage()),
+                                builder: (context) => const navhome()),
                           );
                       // navigate to home page
                     },

@@ -2,6 +2,9 @@ import 'package:ashramapp/pages/eventsempty.dart';
 import 'package:flutter/material.dart';
 import 'package:ashramapp/pages/volunteersignup.dart';
 
+import 'home.dart';
+import 'nav.dart';
+
 class darshan extends StatefulWidget {
   const darshan({super.key});
 
@@ -209,108 +212,120 @@ class _darshanState extends State<darshan> {
           ],
         ),
       ),
-    //  bottomNavigationBar: BottomAppBar(
-    //       color: Colors.white,
-    //       child: Row(
-    //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //         children: [
-    //           Column(
-    //             mainAxisSize: MainAxisSize.min,
-    //             children: [
-    //               IconButton(
-    //                 icon: const Icon(Icons.home),
-    //                 onPressed: () {
-    //                      Navigator.push(
-    //                         context,
-    //                         MaterialPageRoute(
-    //                             builder: (context) => const darshan()),
-    //                       );
-    //                   // navigate to home page
-    //                 },
-    //               ),
-    //               const Text('Home'),
-    //             ],
-    //           ),
-    //           Column(
-    //             mainAxisSize: MainAxisSize.min,
-    //             children: [
-    //               IconButton(
-    //                 icon: const Icon(Icons.event),
-    //                 onPressed: () {
-    //                   // navigate to event page
-    //                 },
-    //               ),
-    //               const Text('Event'),
-    //             ],
-    //           ),
-    //           Column(
-    //             mainAxisSize: MainAxisSize.min,
-    //             children: [
-    //               IconButton(
-    //                 icon: const Icon(Icons.volunteer_activism),
-    //                 onPressed: () {
-    //                   // navigate to volunteer page
-    //                 },
-    //               ),
-    //               const Text('Volunteer'),
-    //             ],
-    //           ),
-    //           Column(
-    //             mainAxisSize: MainAxisSize.min,
-    //             children: [
-    //               IconButton(
-    //                 icon: const Icon(Icons.edit),
-    //                 onPressed: () {
-    //                   // navigate to media page
-    //                 },
-    //               ),
-    //               const Text('Media'),
-    //             ],
-    //           ),
-    //         ],
-    //       ),
-    //     )
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.white, // set the background color of the footer
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              icon: Icon(Icons.home),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomePage()),
-                );
-                // navigate to home page
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.event),
-              onPressed: () {
-                // navigate to event page
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.volunteer_activism),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const VolunteerPage()),
-                );
-                // navigate to volunteer page
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.edit),
-              onPressed: () {
-                // navigate to media page
-              },
-            ),
-          ],
-        ),
-      ),
+     bottomNavigationBar: BottomAppBar(
+          color: Colors.white,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.home),
+                    onPressed: () {
+                         Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const navhome()),
+                          );
+                      // navigate to home page
+                    },
+                  ),
+                  const Text('Home'),
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.event),
+                    onPressed: () {
+                      Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomePage()),
+                          );
+                    },
+                  ),
+                  const Text('Event'),
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.volunteer_activism),
+                    onPressed: () {
+                      Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const VolunteerPage()),
+                          );
+                    },
+                  ),
+                  const Text('Volunteer'),
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.edit),
+                    onPressed: () {
+                      Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const darshan()),
+                          );
+                    },
+                  ),
+                  const Text('Darshan'),
+                ],
+              ),
+            ],
+          ),
+        )
+    //   bottomNavigationBar: BottomAppBar(
+    //     color: Colors.white, // set the background color of the footer
+    //     child: Row(
+    //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //       children: [
+    //         IconButton(
+    //           icon: Icon(Icons.home),
+    //           onPressed: () {
+    //             Navigator.push(
+    //               context,
+    //               MaterialPageRoute(builder: (context) => const HomePage()),
+    //             );
+    //             // navigate to home page
+    //           },
+    //         ),
+    //         IconButton(
+    //           icon: Icon(Icons.event),
+    //           onPressed: () {
+    //             // navigate to event page
+    //           },
+    //         ),
+    //         IconButton(
+    //           icon: Icon(Icons.volunteer_activism),
+    //           onPressed: () {
+    //             Navigator.push(
+    //               context,
+    //               MaterialPageRoute(
+    //                   builder: (context) => const VolunteerPage()),
+    //             );
+    //             // navigate to volunteer page
+    //           },
+    //         ),
+    //         IconButton(
+    //           icon: Icon(Icons.edit),
+    //           onPressed: () {
+    //             // navigate to media page
+    //           },
+    //         ),
+    //       ],
+    //     ),
+    //   ),
     );
   }
 }
