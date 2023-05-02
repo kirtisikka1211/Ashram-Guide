@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,9 +14,11 @@ class _HomePageState extends State<HomePage> {
 // text fields' controllers
   final TextEditingController _TitleController = TextEditingController();
   final TextEditingController _DescriptionController = TextEditingController();
+  final TextEditingController _LocationController = TextEditingController();
+  final TextEditingController _DateTimeController = TextEditingController();
 
   final CollectionReference _events =
-      FirebaseFirestore.instance.collection('events');
+      FirebaseFirestore.instance.collection('Programs');
 
   get controller => null;
 
@@ -44,6 +47,18 @@ class _HomePageState extends State<HomePage> {
                     labelText: 'Description',
                   ),
                 ),
+                TextField(
+                  controller: _LocationController,
+                  decoration: const InputDecoration(
+                    labelText: 'Location',
+                  ),
+                ),
+                TextField(
+                  controller: _DateTimeController,
+                  decoration: const InputDecoration(
+                    labelText: 'Date And Time',
+                  ),
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -52,9 +67,15 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () async {
                     final String Title = _TitleController.text;
                     final String Description = _DescriptionController.text;
+                    final String Location = _LocationController.text;
+                    final String DateTime = _DateTimeController.text;
                     if (Description != null) {
-                      await _events
-                          .add({"Title": Title, "Description": Description});
+                      await _events.add({
+                        "Title": Title,
+                        "Description": Description,
+                        "Location": Location,
+                        "DateTime": DateTime
+                      });
 
                       _TitleController.text = '';
                       _DescriptionController.text = '';
@@ -79,7 +100,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Center(child: Text('Ashram Sahayaka Beta Events')),
+          title: const Center(
+              child: Text(
+            'Events',
+            style: TextStyle(
+              fontFamily: "Changa",
+            ),
+          )),
         ),
         body: StreamBuilder(
           stream: _events.snapshots(),
@@ -92,24 +119,25 @@ class _HomePageState extends State<HomePage> {
                       streamSnapshot.data!.docs[index];
 
                   return Card(
+                    margin: const EdgeInsets.all(14),
+                    color: Colors.deepOrange.shade100,
                     elevation: 4,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(50),
                     ),
                     child: Container(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(15),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               children: [
-                                Icon(Icons.schedule),
-                                SizedBox(width: 8),
                                 Text(
                                   ' ${documentSnapshot['Title']}',
                                   style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'FrancoisOne-Regular',
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.w100,
                                   ),
                                 ),
                                 IconButton(
@@ -118,44 +146,25 @@ class _HomePageState extends State<HomePage> {
                                         _delete(documentSnapshot.id)),
                               ],
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 10),
                             Text(
-                              ' ${DateTime.now().toString().substring(0, 10)} at 6pm',
+                              ' ${documentSnapshot['DateTime']}',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.grey[600],
                               ),
                             ),
-                            const SizedBox(height: 16),
+                            const SizedBox(height: 25),
                             Text(
                               documentSnapshot['Description'],
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: GoogleFonts.jost(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.5),
                             ),
                           ]),
                     ),
                   );
-
-                  // return Card(
-                  //   margin: const EdgeInsets.all(10),
-                  //   child: ListTile(
-                  //     title: Text(documentSnapshot['Title']),
-                  //     subtitle:
-                  //         Text(documentSnapshot['Description'].toString()),
-                  //     trailing: SizedBox(
-                  //       width: 100,
-                  // child: Row(
-                  //   children: [
-                  //     IconButton(
-                  //         icon: const Icon(Icons.close),
-                  //         onPressed: () => _delete(documentSnapshot.id)),
-                  //   ],
-                  // ),
-                  //     ),
-                  //   ),
-                  // );
                 },
               );
             }
