@@ -125,15 +125,10 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Row(
                         children: [
-                          Checkbox(
-                            value: _rememberMe,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _rememberMe = value!;
-                              });
-                            },
-                          ),
-                          const Text('Remember me'),
+                          SizedBox(
+                            width: 50,
+                            height: 10,
+                          )
                         ],
                       ),
                       InkWell(
@@ -142,6 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: const Text(
                           'Forgot Password ?',
                           style: TextStyle(
+                            height: 2,
                             color: Colors.black,
                           ),
                         ),
@@ -180,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                         Icon(Icons.arrow_forward, color: myColor),
                       ])),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 18),
             const Text(
               'OR',
               style: TextStyle(
@@ -190,35 +186,35 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             const SizedBox(height: 10),
-            Container(
-              width: 250,
-              height: 60,
-              margin: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: Colors.black),
-                color: Colors.white,
-              ),
-              child: RichText(text: TextSpan(
-                style: TextStyle(color: Colors.black,fontSize: 20),
-                text: 'No Account?',
-               children: [
-                TextSpan( 
-                  recognizer: TapGestureRecognizer()
-                  ..onTap = widget.onClickedSignUp,
-                  text: 'sign up',
-                  style: TextStyle(
-                    decoration: TextDecoration.underline,
-                    color: Colors.blue[700],
-                  )
-                )
-               ])),
-            ),
+            // Container(
+            //   width: 250,
+            //   height: 60,
+            //   margin: const EdgeInsets.all(16.0),
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(10.0),
+            //     border: Border.all(color: Colors.black),
+            //     color: Colors.white,
+            //   ),
+            //   child: RichText(text: TextSpan(
+            //     style: TextStyle(color: Colors.black,fontSize: 20),
+            //     text: 'No Account?',
+            //    children: [
+            //     TextSpan( 
+            //       recognizer: TapGestureRecognizer()
+            //       ..onTap = widget.onClickedSignUp,
+            //       text: 'sign up',
+            //       style: TextStyle(
+            //         decoration: TextDecoration.underline,
+            //         color: Colors.blue[700],
+            //       )
+            //     )
+            //    ])),
+            // ),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  margin: const EdgeInsets.only(bottom: 45.0),
+                  margin: const EdgeInsets.only(bottom: 95.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

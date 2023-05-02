@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
 import '../main.dart';
@@ -228,69 +229,55 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             const SizedBox(height: 10),
-            Container(
-              width: 250,
-              height: 60,
-              margin: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: Colors.black),
-                color: Colors.white,
-              ),
-              child: TextButton(
-                onPressed: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'lib/images/google.png', // replace with actual path to Google icon image
-                      height: 24,
-                      width: 24,
-                    ),
-                    // SvgPicture.asset(
-                    //   'assets/google_logo.svg',
-                    //   width: 24,
-                    //   height: 24,
-                    // ),
-                    const SizedBox(width: 10),
-                    const Text(
-                      'Login in with Google',
-                      style: TextStyle(
-                        fontFamily: 'Changa',
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // Container(
+            //   width: 250,
+            //   height: 60,
+            //   margin: const EdgeInsets.all(16.0),
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(10.0),
+            //     border: Border.all(color: Colors.black),
+            //     color: Colors.white,
+            //   ),
+            //   child: RichText(text: TextSpan(
+            //     style: TextStyle(color: Colors.black,fontSize: 20),
+            //     text: 'No Account?',
+            //    children: [
+            //     TextSpan( 
+            //       recognizer: TapGestureRecognizer()
+            //       ..onTap = widget.onClickedSignIn,
+            //       text: 'sign up',
+            //       style: TextStyle(
+            //         decoration: TextDecoration.underline,
+            //         color: Colors.blue[700],
+            //       )
+            //     )
+            //    ])),
+            // ),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  margin: const EdgeInsets.only(bottom: 45.0),
+                  margin: const EdgeInsets.only(bottom: 95.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        "Already have an account? ",
+                        "Don't have an account? ",
                         style: TextStyle(
                           fontFamily: 'Changa',
                           fontSize: 16,
                           color: Colors.black,
                         ),
                       ),
-                      GestureDetector(
+                      GestureDetector(  
                           onTap: () {
                             // Navigator.push(
                             //   context,
                             //   MaterialPageRoute(
-                            //       builder: (context) => const LoginPage()),
+                            //       builder: (context) => SignUpPage()),
                             // );
                           },
-                          child: const Text(' Sign In',
+                          child: const Text(' Sign up',
                               style: TextStyle(
                                 fontFamily: 'Changa',
                                 fontSize: 16,
