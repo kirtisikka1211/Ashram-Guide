@@ -186,30 +186,30 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             const SizedBox(height: 10),
-            // Container(
-            //   width: 250,
-            //   height: 60,
-            //   margin: const EdgeInsets.all(16.0),
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(10.0),
-            //     border: Border.all(color: Colors.black),
-            //     color: Colors.white,
-            //   ),
-            //   child: RichText(text: TextSpan(
-            //     style: TextStyle(color: Colors.black,fontSize: 20),
-            //     text: 'No Account?',
-            //    children: [
-            //     TextSpan( 
-            //       recognizer: TapGestureRecognizer()
-            //       ..onTap = widget.onClickedSignUp,
-            //       text: 'sign up',
-            //       style: TextStyle(
-            //         decoration: TextDecoration.underline,
-            //         color: Colors.blue[700],
-            //       )
-            //     )
-            //    ])),
-            // ),
+            Container(
+              width: 250,
+              height: 60,
+              margin: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                border: Border.all(color: Colors.black),
+                color: Colors.white,
+              ),
+              child: RichText(text: TextSpan(
+                style: TextStyle(color: Colors.black,fontSize: 20),
+                text: 'No Account?',
+               children: [
+                TextSpan( 
+                  recognizer: TapGestureRecognizer()
+                  ..onTap = widget.onClickedSignUp,
+                  text: 'sign up',
+                  style: TextStyle(
+                    decoration: TextDecoration.underline,
+                    color: Colors.blue[700],
+                  )
+                )
+               ])),
+            ),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,

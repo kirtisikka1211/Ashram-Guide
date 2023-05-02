@@ -1,162 +1,141 @@
+import 'package:flutter/material.dart';
+
+class Carousel extends StatefulWidget {
+  const Carousel({super.key});
+
+  @override
+  State<Carousel> createState() => _CarouselState();
+}
+
+class _CarouselState extends State<Carousel> {
+  int _index = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+        child: SizedBox(
+          height: 200, // card height
+          child: PageView.builder(
+            itemCount: 10,
+            controller: PageController(viewportFraction: 0.7),
+            onPageChanged: (int index) => setState(() => _index = index),
+            itemBuilder: (_, i) {
+              return Transform.scale(
+                scale: i == _index ? 1 : 0.9,
+                child: Card(
+                  elevation: 6,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                  child: Center(
+                    child: Text(
+                      "Card ${i + 1}",
+                      style: TextStyle(fontSize: 32),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// import 'package:carousel_slider/carousel_slider.dart';
 // import 'package:flutter/material.dart';
 
-// class ToggleButton extends StatefulWidget {
-//   @override
-//   _ToggleButtonState createState() => _ToggleButtonState();
+
+// class HomePage extends StatelessWidget {
+// @override
+// Widget build(BuildContext context) {
+// 	return Scaffold(
+// 	appBar: AppBar(
+// 		title: Text("GFG Slider"),
+// 	),
+// 	body: ListView(
+// 		children: [
+// 		CarouselSlider(
+// 			items: [
+				
+// 				//1st Image of Slider
+// 				Container(
+// 				margin: EdgeInsets.all(6.0),
+// 				decoration: BoxDecoration(
+// 					borderRadius: BorderRadius.circular(8.0),
+// 					image: DecorationImage(
+// 					image: NetworkImage("ADD IMAGE URL HERE"),
+// 					fit: BoxFit.cover,
+// 					),
+// 				),
+// 				),
+				
+// 				//2nd Image of Slider
+// 				Container(
+// 				margin: EdgeInsets.all(6.0),
+// 				decoration: BoxDecoration(
+// 					borderRadius: BorderRadius.circular(8.0),
+// 					image: DecorationImage(
+// 					image: NetworkImage("ADD IMAGE URL HERE"),
+// 					fit: BoxFit.cover,
+// 					),
+// 				),
+// 				),
+				
+// 				//3rd Image of Slider
+// 				Container(
+// 				margin: EdgeInsets.all(6.0),
+// 				decoration: BoxDecoration(
+// 					borderRadius: BorderRadius.circular(8.0),
+// 					image: DecorationImage(
+// 					image: NetworkImage("ADD IMAGE URL HERE"),
+// 					fit: BoxFit.cover,
+// 					),
+// 				),
+// 				),
+				
+// 				//4th Image of Slider
+// 				Container(
+// 				margin: EdgeInsets.all(6.0),
+// 				decoration: BoxDecoration(
+// 					borderRadius: BorderRadius.circular(8.0),
+// 					image: DecorationImage(
+// 					image: NetworkImage("ADD IMAGE URL HERE"),
+// 					fit: BoxFit.cover,
+// 					),
+// 				),
+// 				),
+				
+// 				//5th Image of Slider
+// 				Container(
+// 				margin: EdgeInsets.all(6.0),
+// 				decoration: BoxDecoration(
+// 					borderRadius: BorderRadius.circular(8.0),
+// 					image: DecorationImage(
+// 					image: NetworkImage("ADD IMAGE URL HERE"),
+// 					fit: BoxFit.cover,
+// 					),
+// 				),
+// 				),
+
+// 		],
+			
+// 			//Slider Container properties
+// 			options: CarouselOptions(
+// 				height: 180.0,
+// 				enlargeCenterPage: true,
+// 				autoPlay: true,
+// 				aspectRatio: 16 / 9,
+// 				autoPlayCurve: Curves.fastOutSlowIn,
+// 				enableInfiniteScroll: true,
+// 				autoPlayAnimationDuration: Duration(milliseconds: 800),
+// 				viewportFraction: 0.8,
+// 			),
+// 		),
+// 		],
+// 	),
+
+// 	);
 // }
-
-// const double width = 300.0;
-// const double height = 60.0;
-// const double loginAlign = -1;
-// const double signInAlign = 1;
-// const Color selectedColor = Colors.white;
-// const Color normalColor = Colors.black54;
-
-// class _ToggleButtonState extends State<ToggleButton> {
-//   late double xAlign;
-//   late Color loginColor;
-//   late Color signInColor;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     xAlign = loginAlign;
-//     loginColor = selectedColor;
-//     signInColor = normalColor;
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Demo'),
-//       ),
-//       body: Center(
-//         child: Container(
-//           width: width,
-//           height: height,
-//           decoration: BoxDecoration(
-//             color: Colors.grey,
-//             borderRadius: BorderRadius.all(
-//               Radius.circular(50.0),
-//             ),
-//           ),
-//           child: Stack(
-//             children: [
-//               AnimatedAlign(
-//                 alignment: Alignment(xAlign, 0),
-//                 duration: Duration(milliseconds: 300),
-//                 child: Container(
-//                   width: width * 0.5,
-//                   height: height,
-//                   decoration: BoxDecoration(
-//                     color: Color.fromARGB(255, 0, 40, 100),
-//                     borderRadius: BorderRadius.all(
-//                       Radius.circular(50.0),
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//               GestureDetector(
-//                 onTap: () {
-//                   setState(() {
-//                     xAlign = loginAlign;
-//                     loginColor = selectedColor;
-
-//                     signInColor = normalColor;
-//                   });
-//                 },
-//                 child: Align(
-//                   alignment: Alignment(-1, 0),
-//                   child: Container(
-
-//                     width: width * 0.6,
-//                     color: Colors.transparent,
-//                     alignment: Alignment.center,
-//                     child: Text(
-//                       'Login',
-//                       style: TextStyle(
-//                         color: loginColor,
-//                         fontWeight: FontWeight.bold,
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//               GestureDetector(
-//                 onTap: () {
-//                   setState(() {
-//                     xAlign = signInAlign;
-//                     signInColor = selectedColor;
-
-//                     loginColor = normalColor;
-//                   });
-//                 },
-//                 child: Align(
-//                   alignment: Alignment(1, 0),
-//                   child: Container(
-//                     width: width * 0.5,
-//                     color: Colors.transparent,
-//                     alignment: Alignment.center,
-//                     child: Text(
-//                       'Signin',
-//                       style: TextStyle(
-//                         color: signInColor,
-//                         fontWeight: FontWeight.bold,
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-
-// class MyWidget extends StatefulWidget {
-//   const MyWidget({super.key});
-
-//   @override
-//   State<MyWidget> createState() => _MyWidgetState();
-// }
-
-// class _MyWidgetState extends State<MyWidget> {
-//   int _index = 0;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(),
-//       body: Center(
-//         child: SizedBox(
-//           height: 200, // card height
-//           child: PageView.builder(
-//             itemCount: 10,
-//             controller: PageController(viewportFraction: 0.7),
-//             onPageChanged: (int index) => setState(() => _index = index),
-//             itemBuilder: (_, i) {
-//               return Transform.scale(
-//                 scale: i == _index ? 1 : 0.9,
-//                 child: Card(
-//                   elevation: 6,
-//                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-//                   child: Center(
-//                     child: Text(
-//                       "Card ${i + 1}",
-//                       style: TextStyle(fontSize: 32),
-//                     ),
-//                   ),
-//                 ),
-//               );
-//             },
-//           ),
-//         ),
-//       ),
-//     );
-//   }
 // }

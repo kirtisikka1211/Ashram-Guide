@@ -38,6 +38,7 @@ dependencies:
   firebase_auth: ^3.3.5
   email_validator: ^2.1.17
   email_auth: ^0.0.1
+  carousel_slider: ^4.2.1
 
 
 
