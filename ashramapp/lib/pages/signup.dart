@@ -1,17 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
 import '../main.dart';
 import 'mediate.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignUpPage extends StatefulWidget {
   final Function() onClickedSignIn;
 
-
-  const SignUpPage({Key? key,
-     required this.onClickedSignIn}) : super(key: key);
+  const SignUpPage({Key? key, required this.onClickedSignIn}) : super(key: key);
 
   @override
   _SignUpPageState createState() => _SignUpPageState();
@@ -21,77 +20,64 @@ const Color myColor = Color(0xFF993B3B);
 const Color hColor = Color(0xFFFFE2D4);
 
 class _SignUpPageState extends State<SignUpPage> {
-  final emailController=TextEditingController();
-  final passwordController=TextEditingController();
-    @override
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final _nameController = TextEditingController();
+  final CollectionReference users =
+      FirebaseFirestore.instance.collection('users');
+  @override
   void dispose() {
-    
-  emailController.dispose();
-  passwordController.dispose(); 
-  super.dispose();
-  
-   }
-   
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   bool _obscureText = true;
- 
 
   @override
   Widget build(BuildContext context) {
-
-
-    Future SignUp() async {
-      showDialog(context: context,
+    Future SignUp([DocumentSnapshot? documentSnapshot]) async {
+      showDialog(
+          context: context,
           barrierDismissible: false,
-          builder: (context)=> Center(child: CircularProgressIndicator()));
+          builder: (context) => Center(child: CircularProgressIndicator()));
 
-          navigatorkey.currentState!.popUntil((route) => route.isFirst);
+      navigatorkey.currentState!.popUntil((route) => route.isFirst);
 
-
-       try {await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      try {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: emailController.text.trim(),
-             password: passwordController.text.trim());
-            } on FirebaseException catch (e) {
-              print(e);
-            }
+            password: passwordController.text.trim());
+      } on FirebaseException catch (e) {
+        print(e);
+      }
+
+      final String name = _nameController.text;
+      if (name != null) {
+        await users.add({
+          "name": name,
+        });
+        _nameController.text = '';
+        Navigator.of(context).pop();
+      }
     }
-   
-    
+
     return Scaffold(
         backgroundColor: Colors.white,
         body: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
-
-
-              
-            
-          children: [
-           IconButton(
-  icon: Icon(Icons.arrow_back),
-  onPressed: () {
-    
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => MeditatePage()),
-    );
-//       FadeTransition(
-//   opacity:animation,
-//   child: child,
-// );
-      
-//     );
-//     Navigator.pushReplacement(
-//     context, 
-//     PageRouteBuilder(
-//         pageBuilder: (context, animation1, animation2) => MeditatePage(),
-//         transitionDuration: Duration.zero,
-//         reverseTransitionDuration: Duration.zero,
-//     ),
-// );
-  },
-),
-
+              children: [
+                IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MeditatePage()),
+                    );
+                  },
+                ),
                 const SizedBox(height: 150),
               ],
             ),
@@ -110,7 +96,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  const TextField(
+                  TextField(
+                    controller: _nameController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
@@ -123,7 +110,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                   TextField(
+                  TextField(
                     controller: emailController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
@@ -163,7 +150,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
                   ),
-                const SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   TextField(
                     obscureText: _obscureText,
                     decoration: InputDecoration(
@@ -201,7 +188,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 color: hColor,
               ),
               child: TextButton(
-                  onPressed: SignUp ,
+                  onPressed: SignUp,
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
@@ -229,55 +216,58 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             const SizedBox(height: 10),
-            // Container(
-            //   width: 250,
-            //   height: 60,
-            //   margin: const EdgeInsets.all(16.0),
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(10.0),
-            //     border: Border.all(color: Colors.black),
-            //     color: Colors.white,
-            //   ),
-            //   child: RichText(text: TextSpan(
-            //     style: TextStyle(color: Colors.black,fontSize: 20),
-            //     text: 'No Account?',
-            //    children: [
-            //     TextSpan( 
-            //       recognizer: TapGestureRecognizer()
-            //       ..onTap = widget.onClickedSignIn,
-            //       text: 'sign up',
-            //       style: TextStyle(
-            //         decoration: TextDecoration.underline,
-            //         color: Colors.blue[700],
-            //       )
-            //     )
-            //    ])),
-            // ),
+            Container(
+              width: 250,
+              height: 60,
+              margin: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                border: Border.all(color: Colors.black),
+                color: Colors.white,
+              ),
+              child: TextButton(
+                onPressed: () {},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'lib/images/google.png', // replace with actual path to Google icon image
+                      height: 24,
+                      width: 24,
+                    ),
+                    const SizedBox(width: 10),
+                    const Text(
+                      'Login in with Google',
+                      style: TextStyle(
+                        fontFamily: 'Changa',
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  margin: const EdgeInsets.only(bottom: 95.0),
+                  margin: const EdgeInsets.only(bottom: 45.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        "Don't have an account? ",
+                        "Already have an account? ",
                         style: TextStyle(
                           fontFamily: 'Changa',
                           fontSize: 16,
                           color: Colors.black,
                         ),
                       ),
-                      GestureDetector(  
-                          onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => SignUpPage()),
-                            // );
-                          },
-                          child: const Text(' Sign up',
+                      GestureDetector(
+                          onTap: () {},
+                          child: const Text(' Sign In',
                               style: TextStyle(
                                 fontFamily: 'Changa',
                                 fontSize: 16,
@@ -293,6 +283,3 @@ class _SignUpPageState extends State<SignUpPage> {
         ));
   }
 }
-
-  
-            

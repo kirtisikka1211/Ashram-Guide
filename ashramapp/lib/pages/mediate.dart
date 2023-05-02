@@ -12,7 +12,6 @@ class MeditatePage extends StatefulWidget {
   State<MeditatePage> createState() => _MeditatePageState();
 }
 
-
 const double width = 300.0;
 const double height = 60.0;
 const double loginAlign = -1;
@@ -253,11 +252,11 @@ class _MeditatePageState extends State<MeditatePage> {
                   IconButton(
                     icon: const Icon(Icons.home),
                     onPressed: () {
-                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const navhome()),
-                          );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const navhome()),
+                      );
                       // navigate to home page
                     },
                   ),
@@ -302,7 +301,6 @@ class _MeditatePageState extends State<MeditatePage> {
               ),
             ],
           ),
-        )
-        );
+        ));
   }
 }
